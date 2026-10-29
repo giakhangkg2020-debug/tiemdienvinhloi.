@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiệm Điện Vĩnh Lợi - Chuyên bán & sửa chữa các loại thiết bị điện tàu </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ebf8ff',
+                            100: '#cee9fe',
+                            500: '#0284c7',
+                            600: '#026aa7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+      
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0369a1;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+   
+    <div class="bg-brand-900 text-white text-xs sm:text-sm py-2 px-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span><i class="fa-solid fa-location-dot text-yellow-400 mr-1"></i> 62 Đường Mạc Cửu , Phường Rạch Giá, An Giang</span>
+                <span class="hidden md:inline"><i class="fa-solid fa-clock text-yellow-400 mr-1"></i> Mở cửa: 07:30 - 17:00 (T2 - CN)</span>
+            </div>
+            <div class="flex items-center gap-4 font-semibold">
+                <a href="tel:0908123456" class="hover:text-yellow-300 transition-colors"><i class="fa-solid fa-phone text-yellow-400 mr-1"></i> Hotline: 0913190361</a>
+            </div>
+        </div>
+    </div>
+
+    
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+            <div class="flex items-center justify-between gap-4">
+     
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 bg-gradient-to-tr from-brand-700 to-sky-400 rounded-xl flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black tracking-tight text-brand-900 group-hover:text-brand-600 transition-colors">
+                            TIỆM ĐIỆN VĨNH LỢI
+                        </h1>
+                        <p class="text-xs font-medium text-slate-500 tracking-wider"> Chuyên bán & sửa chữa các loại thiết bị điện tàu </p>
+                    </div>
+                </a>
+
+  
+                <div class="hidden md:flex flex-1 max-w-md mx-6 relative">
+                    <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Tìm đynamô, củ đề, bình ắc quy, IC..." 
+                           class="w-full pl-10 pr-4 py-2.5 rounded-full border border-slate-300 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200 text-sm transition-all shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400"></i>
+                </div>
+
+
+                <div class="flex items-center gap-3">
+                    <a href="https://zalo.me" target="_blank" class="hidden sm:flex items-center gap-2 bg-blue-50 text-brand-700 hover:bg-brand-100 font-semibold text-xs sm:text-sm px-3.5 py-2 rounded-full border border-brand-200 transition-colors">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        <i class="fa-solid fa-comments"></i> Tư vấn Zalo
+                    </a>
+
+   
+                    <button onclick="toggleCartDrawer()" class="relative p-2.5 bg-brand-50 hover:bg-brand-100 text-brand-700 rounded-full transition-colors focus:outline-none" aria-label="Giỏ hàng">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cartBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-sm">0</span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="mt-3 md:hidden relative">
+                <input type="text" id="mobileSearchInput" oninput="syncAndFilter(this.value)" placeholder="Tìm đynamô, củ đề, ắc quy, rơle..." 
+                       class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:border-brand-500 text-sm">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-2.5 text-slate-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative bg-gradient-to-r from-brand-900 via-brand-800 to-sky-900 text-white overflow-hidden py-12 md:py-16">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-7 space-y-4 text-center md:text-left">
+                    <span class="inline-block px-3 py-1 bg-yellow-400 text-brand-900 rounded-full text-xs font-extrabold uppercase tracking-wider">
+                        Uy Tín - Chất Lượng - Giá Sỉ & Lẻ
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight">
+                        Chuyên sữa chữa các loại  <span class="text-sky-300"> Điện, Xe & Tàu</span>
+                    </h2>
+                    <p class="text-slate-200 text-sm sm:text-base max-w-2xl">
+                        Phân phối Sỉ & Lẻ: Đynamô, Củ đề, Bình ắc quy, IC, Diode, Bale than, Ruột đề, Rơle, Dây đồng chất lượng cao. Đảm bảo nguồn điện mạnh mẽ & bền bỉ cho mọi dòng xe.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3 justify-center md:justify-start">
+                        <a href="#products" class="bg-yellow-400 hover:bg-yellow-300 text-brand-900 font-bold px-6 py-3 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-store mr-2"></i> Xem Sản Phẩm
+                        </a>
+                        <a href="tel:0908123456" class="bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-md text-white font-semibold px-6 py-3 rounded-xl transition-all">
+                            <i class="fa-solid fa-headset mr-2"></i> Gọi Điện Tư Vấn
+                        </a>
+                    </div>
+                </div>
+     
+                <div class="md:col-span-5 grid grid-cols-2 gap-3">
+                    <div class="bg-white/10 backdrop-blur-md border border-white/10 p-4 rounded-2xl text-center">
+                        <i class="fa-solid fa-shield-halved text-yellow-400 text-3xl mb-2"></i>
+                        <h3 class="font-bold text-sm">Hàng Chính Hãng</h3>
+                        <p class="text-xs text-slate-300 mt-1">Bảo hành uy tín, lỗi 1 đổi 1</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/10 p-4 rounded-2xl text-center">
+                        <i class="fa-solid fa-truck-fast text-yellow-400 text-3xl mb-2"></i>
+                        <h3 class="font-bold text-sm">Giao Hàng Nhanh</h3>
+                        <p class="text-xs text-slate-300 mt-1">Ship COD toàn quốc tận nơi</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/10 p-4 rounded-2xl text-center">
+                        <i class="fa-solid fa-wrench text-yellow-400 text-3xl mb-2"></i>
+                        <h3 class="font-bold text-sm">Tư Vấn Kỹ Thuật</h3>
+                        <p class="text-xs text-slate-300 mt-1">Hỗ trợ đo đạc, đúng thông số</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/10 p-4 rounded-2xl text-center">
+                        <i class="fa-solid fa-tags text-yellow-400 text-3xl mb-2"></i>
+                        <h3 class="font-bold text-sm">Giá Cạnh Tranh</h3>
+                        <p class="text-xs text-slate-300 mt-1">Mức giá ưu đãi cho thợ & đại lý</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+    <main id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+        
+    
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+            <div>
+                <h3 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    <span class="w-2.5 h-7 bg-brand-600 rounded-full inline-block"></span>
+                    Danh Mục Phụ Tùng
+                </h3>
+                <p class="text-sm text-slate-500 mt-1">Chọn nhóm phụ tùng bạn muốn tìm kiếm</p>
+            </div>
+
+       
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="categoryTabs">
+                <button onclick="setCategory('all')" class="cat-btn active bg-brand-600 text-white font-medium text-xs sm:text-sm px-4 py-2 rounded-full whitespace-nowrap transition-all shadow-sm">
+                    Tất cả
+                </button>
+                <button onclick="setCategory('dynamo')" class="cat-btn bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium text-xs sm:text-sm px-4 py-2 rounded-full whitespace-nowrap transition-all">
+                    Đynamô & Phụ kiện (IC, Diode)
+                </button>
+                <button onclick="setCategory('starter')" class="cat-btn bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium text-xs sm:text-sm px-4 py-2 rounded-full whitespace-nowrap transition-all">
+                    Củ Đề & Phụ kiện (Ruột, Rơle, Than...)
+                </button>
+                <button onclick="setCategory('battery')" class="cat-btn bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium text-xs sm:text-sm px-4 py-2 rounded-full whitespace-nowrap transition-all">
+                    Bình Ắc Quy
+                </button>
+                <button onclick="setCategory('wire')" class="cat-btn bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium text-xs sm:text-sm px-4 py-2 rounded-full whitespace-nowrap transition-all">
+                    Dây Đồng Cuộn & Đồ Điện
+                </button>
+            </div>
+        </div>
+
+      
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+     
+        </div>
+
+
+        <div id="noResults" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200">
+            <i class="fa-solid fa-box-open text-5xl text-slate-300 mb-3"></i>
+            <h4 class="text-lg font-bold text-slate-700">Không tìm thấy sản phẩm phù hợp</h4>
+            <p class="text-sm text-slate-500 mt-1">Thử tìm kiếm từ khóa khác hoặc quay lại danh mục "Tất cả"</p>
+            <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700">
+                Xóa bộ lọc
+            </button>
+        </div>
+
+    </main>
+
+   
+    <section class="bg-brand-50 border-t border-b border-brand-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <h3 class="text-2xl font-bold text-brand-900">Vì Sao Nên Chọn Tiệm Điện Vĩnh Lợi?</h3>
+                <p class="text-slate-600 text-sm mt-2">Hơn 30 năm kinh nghiệm trong lĩnh vực sửa chữa và cung cấp thiết bị điện ô tô - xe máy.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-100 flex gap-4">
+                    <div class="w-12 h-12 bg-brand-100 text-brand-700 rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Đầy Đủ Chủng Loại</h4>
+                        <p class="text-xs text-slate-600 mt-1">Từ các dòng củ đề, đynamô xe du lịch, xe tải đến linh kiện nhỏ nhất như bale than, iôt, nhông đề.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-100 flex gap-4">
+                    <div class="w-12 h-12 bg-brand-100 text-brand-700 rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Chuẩn Thông Số Kỹ Thuật</h4>
+                        <p class="text-xs text-slate-600 mt-1">Dây đồng nguyên chất 100%, ruột đề & củ đề đủ công suất, đúng điện áp 12V - 24V chuẩn nhà sản xuất.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-100 flex gap-4">
+                    <div class="w-12 h-12 bg-brand-100 text-brand-700 rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-hand-holding-hand"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Hỗ Trợ Kỹ Thuật Tận Tâm</h4>
+                        <p class="text-xs text-slate-600 mt-1">Tư vấn khắc phục sự cố hệ thống sạc, kích đề, tư vấn chọn bình ắc quy phù hợp nhất cho xe.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            
+            <div class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-9 h-9 bg-brand-600 rounded-lg flex items-center justify-center text-white font-black text-xl">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <span class="text-xl font-bold text-white tracking-wide">TIỆM ĐIỆN VĨNH LỢI</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Chuyên phân phối phụ tùng điện, củ đề, đynamô, bình ắc quy, dây đồng cuộn chất lượng cao cho thợ và chủ xe trên toàn quốc.
+                </p>
+                <div class="flex gap-3 text-lg">
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-brand-600 hover:text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-brand-600 hover:text-white transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-brand-600 hover:text-white transition-colors"><i class="fa-solid fa-comment"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase mb-4 border-b border-slate-800 pb-2">Danh Mục Sản Phẩm</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#products" onclick="setCategory('dynamo')" class="hover:text-yellow-400 transition-colors">Đynamô & IC, Diode</a></li>
+                    <li><a href="#products" onclick="setCategory('starter')" class="hover:text-yellow-400 transition-colors">Củ Đề & Ruột Đề, Rơle</a></li>
+                    <li><a href="#products" onclick="setCategory('starter')" class="hover:text-yellow-400 transition-colors">Than Đề & Bale Than</a></li>
+                    <li><a href="#products" onclick="setCategory('battery')" class="hover:text-yellow-400 transition-colors">Bình Ắc Quy GS, Đồng Nai</a></li>
+                    <li><a href="#products" onclick="setCategory('wire')" class="hover:text-yellow-400 transition-colors">Dây Đồng Cuộn Trái & Răng Đề</a></li>
+                </ul>
+            </div>
+
+     
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase mb-4 border-b border-slate-800 pb-2">Liên Hệ Mua Hàng</h4>
+                <ul class="space-y-3 text-xs">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-location-dot text-brand-500 mt-0.5"></i>
+                        <span> 62 Đường Mạc Cửu , Phường rạch Giá , Tỉnh An Giang</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-brand-500"></i>
+                        <span class="font-bold text-yellow-400">Hotline/Zalo: 0913190361</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-brand-500"></i>
+                        <span>tiemdienvinhloi@gmail.com</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-brand-500"></i>
+                        <span>7:30 - 17:00 (Từ thứ 2 đến Chủ Nhật)</span>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase mb-4 border-b border-slate-800 pb-2">Bản Đồ Cửa Hàng</h4>
+                <div class="bg-slate-800 rounded-xl p-3 border border-slate-700 text-center">
+                    <div class="bg-slate-700 h-28 rounded-lg flex flex-col items-center justify-center text-slate-400 mb-2">
+                        <i class="fa-solid fa-map-location-dot text-3xl text-brand-500 mb-1"></i>
+                        <span class="text-xs">Tiệm Điện Vĩnh Lợi</span>
+                    </div>
+                    <a href="https://maps.google.com" target="_blank" class="text-xs text-brand-400 hover:underline inline-block font-semibold">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> https://maps.app.goo.gl/G7SD8pRX5aTbxkgi6                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
+            &copy; 2026 Tiệm Điện Vĩnh Lợi. Bản quyền thuộc về tiệm. Thiết kế chuyên nghiệp, chuẩn phụ tùng điện.
+        </div>
+    </footer>
+
+
+    <div id="cartModal" class="fixed inset-0 z-50 invisible opacity-0 transition-all duration-300">
+       
+        <div onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+    
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="cartPanel">
+            
+            <div class="p-4 bg-brand-900 text-white flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-yellow-400"></i>
+                    <h3 class="font-bold text-base">Giỏ Hàng Của Bạn</h3>
+                </div>
+                <button onclick="toggleCartDrawer()" class="text-slate-300 hover:text-white text-xl p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+    
+            <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
+     
+            </div>
+
+      
+            <div class="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
+                <div class="flex justify-between items-center text-slate-700">
+                    <span class="text-sm">Tổng cộng:</span>
+                    <span id="cartTotal" class="text-xl font-black text-brand-700">0 ₫</span>
+                </div>
+
+               
+                <div class="space-y-2 pt-2 border-t border-slate-200">
+                    <input type="text" id="customerName" placeholder="Họ và tên người nhận (*)" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-brand-500">
+                    <input type="tel" id="customerPhone" placeholder="Số điện thoại (*)" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-brand-500">
+                    <textarea id="customerAddress" rows="2" placeholder="Địa chỉ nhận hàng (Tỉnh/Thành, Quận/Huyện...)" class="w-full text-xs p-2 rounded-lg border border-slate-300 focus:outline-none focus:border-brand-500"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                    <button onclick="sendZaloOrder()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors">
+                        <i class="fa-solid fa-paper-plane"></i> Đặt Hàng Zalo
+                    </button>
+                    <button onclick="callHotlineOrder()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors">
+                        <i class="fa-solid fa-phone"></i> Gọi Điện Đặt
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col">
+            <button onclick="closeProductModal()" class="absolute right-3 top-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full w-8 h-8 flex items-center justify-center z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="productModalContent" class="p-6 overflow-y-auto">
+         
+            </div>
+        </div>
+    </div>
+
+
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-slate-700 text-sm">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMessage">Đã thêm sản phẩm vào giỏ hàng!</span>
+    </div>
+>
+    <script>
+        
+        const products = [
+            {
+                id: 1,
+                name: "Đynamô Máy Phát Điện Ô Tô Denso 12V - 80A",
+                category: "dynamo",
+                price: 2500000,
+                code: "DN-DENSO-12V80A",
+                specs: "Điện áp: 12V | Dòng điện: 80A | Chân cắm 3 pin | Dùng cho Toyota, Honda",
+                image: "https://image.made-in-china.com/2f0j00YZpWVuqRJBgk/12V-80A-Car-Alternator-for-Denso-104210-9940-31400-58m00-Auto-Parts.jpg" ,
+                badge: "Bán chạy"
+            },
+            {
+                id: 2,
+                name: "Củ Đề (Mô Tơ Khởi Động) Hyundai Porter II / Bongo 3",
+                category: "starter",
+                price: 3800000,
+                code: "CD-HYUNDAI-12V",
+                specs: "Điện áp: 12V | 10 Răng nhông | Công suất 2.2KW | Dùng cho xe tải nhỏ",
+                image: "https://bizweb.dktcdn.net/thumb/large/100/144/901/products/screenshot-2024-12-05-105033.png?v=1764666949397",
+                badge: "Mới"
+            },
+            {
+                id: 3,
+                name: "IC Đynamô (Tết Sạc) Toyota Innova / Fortuner",
+                category: "dynamo",
+                price: 750000,
+                code: "IC-TYT-01",
+                specs: "Mạch ổn định điện áp sạc | Điện áp 14.5V chuẩn | Tản nhiệt nhôm cao cấp",
+                image: "https://quocduyauto.com/data/upload/1653479718-may-phat-dien-fortuner-2015-may-dau-hilux-2014-27060-0L022%20(1).jpg",
+                badge: "Phụ kiện"
+            },
+            {
+                id: 4,
+                name: "Cầu Diode (Iôt) Đynamô Xe Tải Isuzu / Hino",
+                category: "dynamo",
+                price: 450000,
+                code: "IOT-ISZ-24V",
+                specs: "Chịu tải 6 Diode dòng cao | Chắn bụi chống chập | Chịu nhiệt tới 150°C",
+                image: "https://phutungxenang.com/wp-content/uploads/2025/12/may-phat-dien-xe-nang-chaochai-6102bg6-0612-400531-400x400.jpg",
+                badge: "Chính hãng"
+            },
+            {
+                id: 5,
+                name: "Bộ Bale Than (Chổi Than & Đế) Củ Đề Xe Du Lịch",
+                category: "starter",
+                price: 180000,
+                code: "BT-UNIVERSAL-02",
+                specs: "Gồm 4 chổi than đồng hợp kim + Đế nhựa chịu nhiệt, lò xo ép chuẩn",
+                image: "https://phutungotonhapkhau.com/wp-content/uploads/2025/01/choi-than-de-2.jpg",
+                badge: ""
+            },
+            {
+                id: 6,
+                name: "Than Đề Xe Máy / Ô Tô Cao Cấp (Bộ 10 Cặp)",
+                category: "starter",
+                price: 250000,
+                code: "TD-COPPER-10P",
+                specs: "Thành phần 70% đồng giúp dẫn điện cực tốt, giảm mài mòn cổ góp",
+                image: "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lzomw2jsgzt905",
+                badge: "Giá sỉ"
+            },
+            {
+                id: 7,
+                name: "Ruột Đề (Rotor Củ Đề) 12V Xe Tải Kia K250 / K200",
+                category: "starter",
+                price: 850000,
+                code: "RT-KIA-12V",
+                specs: "Dây quấn đồng 100% chịu nhiệt cao, cổ góp đúc dầy dặn chống chập",
+                image: "https://phutungotonhapkhau.com/wp-content/uploads/2025/01/cu-de-36-1-300x300.jpg.webp",
+                badge: "Bền bỉ"
+            },
+            {
+                id: 8,
+                name: "Rơle Đề (Cóc Đề / Chuột Đề) Ford Transit 24V",
+                category: "starter",
+                price: 550000,
+                code: "RL-FORD-24V",
+                specs: "Lực hút mạnh mẽ, tiếp điểm bằng đồng đỏ chịu dòng khởi động lớn",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2WzfZu4Eoi1vVrc8vo93DEd6a0a9ZwDTMZxZhWl5xhOxzwy93CzEu_Pjg&s=10",
+                badge: ""
+            },
+            {
+                id: 9,
+                name: "Răng Đề (Nhông Đề / Bendix) 9 Răng Xe Honda Wave/Dream",
+                category: "starter",
+                price: 220000,
+                code: "ND-HD-9T",
+                specs: "Thép tôi siêu cứng chống mòn răng, bi một chiều bắt êm không trượt",
+                image: "https://down-vn.img.susercontent.com/file/vn-11134207-820l4-mi14zmoernyd27",
+                badge: ""
+            },
+            {
+                id: 10,
+                name: "Bình Ắc Quy GS Khô 12V - 45Ah (46B24L) Cho Xe Hơi",
+                category: "battery",
+                price: 1550000,
+                code: "AQ-GS-45AH",
+                specs: "Miễn bảo dưỡng | Dòng khởi động CCA cao | Tuổi thọ 3-5 năm",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgkPwSumHFl2ToYT1aumDFAryrOJhI_6TLhbTQvRytbg8_rXL_UnFWgvTB&s=10",
+                badge: "GS Chính Hãng"
+            },
+            {
+                id: 11,
+                name: "Bình Ắc Quy Đồng Nai Khô 12V - 12Ah Cho tàu / Khởi Động",
+                category: "battery",
+                price: 550000,
+                code: "AQ-DN-12AH",
+                specs: "Dùng cho xe tay ga, xe số, bộ kích điện, nguồn dự phòng hỏa tốc",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsoJPZDIpMdwOcs64FjqZ635KErNwP14J0DapnhcrXncwLXOIc-ltjq3s&s=10",
+                badge: ""
+            },
+            {
+                id: 12,
+                name: "Dây Đồng Cuộn Quấn Motor / Đynamô (Cuộn 1Kg - Cỡ 0.8mm)",
+                category: "wire",
+                price: 350000,
+                code: "DD-08MM-1KG",
+                specs: "Đồng đỏ nguyên chất 99.9%, phủ emay cách điện chịu nhiệt 200°C",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHVEl4QJjF-9HlW6h4U-Mk1b51fzcYzBFDkXlSqQcG5oJZ01DcEtwzB_Gb&s=10",
+                badge: "Đồng 100%"
+            }
+        ];
+
+    
+        let cart = [];
+        let activeCategory = 'all';
+
+ 
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartBadge();
+        });
+
+     
+        function formatVND(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
+
+      
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const noResults = document.getElementById('noResults');
+            const searchVal = (document.getElementById('searchInput').value || document.getElementById('mobileSearchInput').value || '').toLowerCase();
+
+            const filtered = products.filter(p => {
+                const matchCategory = activeCategory === 'all' || p.category === activeCategory;
+                const matchSearch = p.name.toLowerCase().includes(searchVal) || 
+                                    p.code.toLowerCase().includes(searchVal) ||
+                                    p.specs.toLowerCase().includes(searchVal);
+                return matchCategory && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            grid.innerHTML = filtered.map(p => `
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div class="relative overflow-hidden cursor-pointer bg-slate-100" onclick="openProductModal(${p.id})">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                        ${p.badge ? `<span class="absolute top-3 left-3 bg-brand-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shadow">${p.badge}</span>` : ''}
+                        <span class="absolute top-3 right-3 bg-slate-900/70 backdrop-blur-md text-white text-xs px-2 py-0.5 rounded font-mono">${p.code}</span>
+                    </div>
+
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 onclick="openProductModal(${p.id})" class="font-bold text-slate-800 hover:text-brand-600 cursor-pointer line-clamp-2 text-sm sm:text-base leading-snug transition-colors">
+                                ${p.name}
+                            </h4>
+                            <p class="text-xs text-slate-500 mt-2 line-clamp-2">${p.specs}</p>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-100">
+                            <div class="flex items-baseline justify-between mb-3">
+                                <span class="text-xs text-slate-400">Giá bán:</span>
+                                <span class="text-base sm:text-lg font-black text-brand-700">${formatVND(p.price)}</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="addToCart(${p.id})" class="w-full bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold py-2 px-2 rounded-xl text-xs flex items-center justify-center gap-1 transition-colors">
+                                    <i class="fa-solid fa-cart-plus"></i> + Giỏ hàng
+                                </button>
+                                <button onclick="buyNow(${p.id})" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2 px-2 rounded-xl text-xs flex items-center justify-center gap-1 transition-colors">
+                                    <i class="fa-solid fa-bolt"></i> Mua Ngay
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+     
+        function setCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-brand-600', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700');
+            });
+
+            event.currentTarget.classList.remove('bg-white', 'text-slate-700');
+            event.currentTarget.classList.add('active', 'bg-brand-600', 'text-white');
+
+            renderProducts();
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        function syncAndFilter(val) {
+            document.getElementById('searchInput').value = val;
+            renderProducts();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('mobileSearchInput').value = '';
+            activeCategory = 'all';
+            renderProducts();
+        }
+
+       
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existItem = cart.find(item => item.id === productId);
+
+            if (existItem) {
+                existItem.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartBadge();
+            renderCartItems();
+            showToast(`Đã thêm "${product.name.slice(0, 20)}..." vào giỏ`);
+        }
+
+        function updateCartBadge() {
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartBadge').innerText = totalQty;
+        }
+
+        function updateQty(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalEl = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-400">
+                        <i class="fa-solid fa-cart-arrow-down text-4xl mb-2"></i>
+                        <p class="text-sm">Giỏ hàng của bạn đang trống</p>
+                    </div>
+                `;
+                totalEl.innerText = '0 ₫';
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map(item => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                return `
+                    <div class="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg border">
+                        <div class="flex-1 min-w-0">
+                            <h5 class="text-xs font-bold text-slate-800 truncate">${item.name}</h5>
+                            <span class="text-[11px] text-slate-500">${formatVND(item.price)}</span>
+                            <div class="flex items-center gap-2 mt-1">
+                                <button onclick="updateQty(${item.id}, -1)" class="w-5 h-5 rounded bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center hover:bg-slate-300">-</button>
+                                <span class="text-xs font-semibold px-1">${item.qty}</span>
+                                <button onclick="updateQty(${item.id}, 1)" class="w-5 h-5 rounded bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center hover:bg-slate-300">+</button>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-brand-700 block">${formatVND(subtotal)}</span>
+                            <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 text-xs mt-2 p-1">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.innerText = formatVND(total);
+        }
+
+        function toggleCartDrawer() {
+            const modal = document.getElementById('cartModal');
+            const panel = document.getElementById('cartPanel');
+
+            if (modal.classList.contains('invisible')) {
+                renderCartItems();
+                modal.classList.remove('invisible', 'opacity-0');
+                panel.classList.remove('translate-x-full');
+            } else {
+                panel.classList.add('translate-x-full');
+                modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('invisible');
+                }, 300);
+            }
+        }
+
+        function buyNow(productId) {
+            addToCart(productId);
+            toggleCartDrawer();
+        }
+
+     
+        function openProductModal(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+
+            const content = document.getElementById('productModalContent');
+            content.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-100 rounded-xl overflow-hidden flex items-center justify-center">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="space-y-4">
+                        <span class="inline-block bg-brand-100 text-brand-800 text-xs font-bold px-2.5 py-1 rounded-full">Mã: ${p.code}</span>
+                        <h3 class="text-xl font-bold text-slate-900 leading-snug">${p.name}</h3>
+                        <p class="text-2xl font-black text-brand-700">${formatVND(p.price)}</p>
+                        <div class="border-t border-b border-slate-100 py-3 text-xs text-slate-600 space-y-1.5">
+                            <p><strong>Thông số kỹ thuật:</strong> ${p.specs}</p>
+                            <p><strong>Bảo hành:</strong> 06 - 12 tháng tùy loại linh kiện</p>
+                            <p><strong>Tình trạng:</strong> <span class="text-emerald-600 font-semibold">Còn hàng sẵn tại kho</span></p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="addToCart(${p.id}); closeProductModal();" class="flex-1 bg-brand-50 text-brand-700 font-bold py-2.5 rounded-xl text-sm border border-brand-200 hover:bg-brand-100">
+                                <i class="fa-solid fa-cart-plus mr-1"></i> Thêm Giỏ Hàng
+                            </button>
+                            <button onclick="buyNow(${p.id}); closeProductModal();" class="flex-1 bg-brand-600 text-white font-bold py-2.5 rounded-xl text-sm hover:bg-brand-700">
+                                Mua Ngay Zalo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('productModal').classList.remove('hidden');
+            document.getElementById('productModal').classList.add('flex');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+            document.getElementById('productModal').classList.remove('flex');
+        }
+
+  
+        function sendZaloOrder() {
+            if (cart.length === 0) {
+                showToast("Giỏ hàng của bạn đang trống!", "error");
+                return;
+            }
+
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const address = document.getElementById('customerAddress').value.trim();
+
+            if (!name || !phone) {
+                alert("Vui lòng điền Họ tên và Số điện thoại để Tiệm Điện Vĩnh Lợi liên hệ giao hàng!");
+                return;
+            }
+
+            let msg = `Xin chào Tiệm Điện Vĩnh Lợi! Tôi muốn đặt hàng:\n\n`;
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const sub = item.price * item.qty;
+                total += sub;
+                msg += `${index + 1}. ${item.name} (${item.code})\n   SL: ${item.qty} x ${formatVND(item.price)} = ${formatVND(sub)}\n`;
+            });
+
+            msg += `\nTổng tiền: ${formatVND(total)}\n`;
+            msg += `--- THÔNG TIN KHÁCH HÀNG ---\n`;
+            msg += `Họ tên: ${name}\nSĐT: ${phone}\nĐịa chỉ: ${address || 'Tư vấn giao hàng sau'}`;
+
+        
+            copyToClipboard(msg);
+
+          
+            window.open(`https://zalo.me/0908123456`, '_blank');
+            showToast("Đã sao chép đơn hàng & mở Zalo!");
+        }
+
+        function callHotlineOrder() {
+            window.location.href = "tel:0908123456";
+        }
+
+
+        function copyToClipboard(text) {
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        }
+
+    
+        function showToast(message, type = "success") {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toastMessage');
+            const iconEl = document.getElementById('toastIcon');
+
+            msgEl.innerText = message;
+            if (type === "error") {
+                iconEl.className = "fa-solid fa-circle-exclamation text-red-400 text-lg";
+            } else {
+                iconEl.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
